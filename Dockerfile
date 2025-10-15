@@ -4,16 +4,15 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-COPY tsconfig.json ./
 
-# Install dependencies
-RUN npm ci
+# Copy node_modules (built locally)
+# Note: Run npm install locally before building the Docker image
+COPY node_modules/ ./node_modules/
 
-# Copy source code
-COPY src/ ./src/
-
-# Build the application
-RUN npm run build
+# Copy pre-built application
+# Note: Build the application locally before building the Docker image
+# Run: npm run build
+COPY dist/ ./dist/
 
 # Set environment variable placeholder
 ENV GITHUB_TOKEN=""

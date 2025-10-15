@@ -34,7 +34,13 @@ npm run build
 
 ### Docker Installation
 
+**Important**: Build the application locally first before building the Docker image:
+
 ```bash
+# Build the application locally
+npm install
+npm run build
+
 # Build the Docker image
 docker build -t github-mcp-server .
 
@@ -45,6 +51,10 @@ docker run -e GITHUB_TOKEN=your_token_here github-mcp-server
 Or use Docker Compose:
 
 ```bash
+# Build the application locally first
+npm install
+npm run build
+
 # Copy environment example
 cp .env.example .env
 # Edit .env and add your GITHUB_TOKEN
