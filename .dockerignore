@@ -1,0 +1,9 @@
+.git
+.github
+*.md
+.env
+.env.example
+*.log
+.DS_Store
+*.tsbuildinfo
+mcp-config.example.json

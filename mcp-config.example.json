@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "node",
+      "args": ["/absolute/path/to/github-mcp-serve/dist/index.js"],
+      "env": {
+        "GITHUB_TOKEN": "ghp_your_github_token_here"
+      }
+    }
+  }
+}
