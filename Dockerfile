@@ -1,21 +1,22 @@
+FROM node:18-alpine AS build
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --ignore-scripts
+
+COPY tsconfig.json ./
+COPY src ./src
+RUN npm run build
+
 FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package files
 COPY package*.json ./
+RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
+COPY --from=build /app/dist ./dist
 
-# Copy node_modules (built locally)
-# Note: Run npm install locally before building the Docker image
-COPY node_modules/ ./node_modules/
-
-# Copy pre-built application
-# Note: Build the application locally before building the Docker image
-# Run: npm run build
-COPY dist/ ./dist/
-
-# Set environment variable placeholder
 ENV GITHUB_TOKEN=""
 
-# Run the server
 CMD ["node", "dist/index.js"]
