@@ -47,7 +47,7 @@ npm run build
 docker build -t github-mcp-server .
 
 # Run with environment variable
-docker run -e GITHUB_TOKEN=your_token_here github-mcp-server
+docker run -e GITHUB_TOKEN="<your-github-token>" github-mcp-server
 ```
 
 Or use Docker Compose:
@@ -69,15 +69,13 @@ docker-compose up
 
 ### GitHub Token
 
-1. Go to GitHub Settings → Developer settings → Personal access tokens
-2. Generate a new token with appropriate scopes:
-   - `repo` - Full control of private repositories
-   - `public_repo` - Access to public repositories
-   - `read:user` - Read user profile data
-3. Set the token as an environment variable:
+1. Create or manage a [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new) in GitHub Settings. Use a classic token only when a required endpoint does not support fine-grained tokens.
+2. Restrict the token to the repositories this server needs and grant only the required permissions: repository metadata and contents for read operations; issues and pull requests only when those tools are needed; write access only when creating issues or pull requests.
+3. Set an expiration and rotate the token through GitHub Settings. Never commit it to a repository or place it in a client-side configuration file.
+4. Set the token as an environment variable:
 
 ```bash
-export GITHUB_TOKEN=ghp_your_token_here
+export GITHUB_TOKEN="<your-github-token>"
 ```
 
 ## Usage
@@ -118,7 +116,7 @@ Configure your MCP client to use this server:
       "command": "node",
       "args": ["/path/to/github-mcp-serve/dist/index.js"],
       "env": {
-        "GITHUB_TOKEN": "ghp_your_token_here"
+        "GITHUB_TOKEN": "<your-github-token>"
       }
     }
   }
