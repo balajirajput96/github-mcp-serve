@@ -5,7 +5,7 @@ Get up and running with GitHub MCP Server in 5 minutes!
 ## Prerequisites
 
 - Node.js 18 or higher
-- GitHub Personal Access Token (get one at https://github.com/settings/tokens)
+- A GitHub fine-grained personal access token. Create or manage one at [GitHub Settings](https://github.com/settings/personal-access-tokens/new); use a classic token only when a required GitHub API capability is not supported by fine-grained tokens.
 
 ## 🚀 Quick Setup
 
@@ -26,7 +26,7 @@ npm run build
 ### 3. Set Your GitHub Token
 
 ```bash
-export GITHUB_TOKEN=ghp_your_github_token_here
+export GITHUB_TOKEN="<your-github-token>"
 ```
 
 ### 4. Run
@@ -56,7 +56,7 @@ The server communicates via stdio and follows the MCP protocol. To use it:
       "command": "node",
       "args": ["/full/path/to/github-mcp-serve/dist/index.js"],
       "env": {
-        "GITHUB_TOKEN": "ghp_your_token_here"
+        "GITHUB_TOKEN": "<your-github-token>"
       }
     }
   }
@@ -83,7 +83,7 @@ npm run build
 docker build -t github-mcp-server .
 
 # Run with your token
-docker run -e GITHUB_TOKEN=ghp_your_token_here github-mcp-server
+docker run -e GITHUB_TOKEN="<your-github-token>" github-mcp-server
 ```
 
 ## 📚 What's Next?
@@ -109,10 +109,11 @@ The server provides these tools:
 
 ## ⚡ Pro Tips
 
-1. **Token Scopes**: Ensure your token has `repo` scope for full access
-2. **Rate Limits**: Authenticated requests have 5000/hour limit
-3. **Error Messages**: Check stderr for detailed error information
-4. **Testing**: Use a test repository to try out features first
+1. **Least privilege**: Fine-grained tokens are preferred. Restrict the token to only the repositories this server needs and choose only the required permissions: repository metadata, contents, issues, and pull requests, with write access only when creating issues or pull requests.
+2. **Expiration**: Set an expiration and rotate the token through GitHub Settings rather than storing it in source control.
+3. **Rate Limits**: Authenticated requests have 5000/hour limit.
+4. **Error Messages**: Check stderr for detailed error information.
+5. **Testing**: Use a test repository to try out features first.
 
 ## 🆘 Troubleshooting
 
